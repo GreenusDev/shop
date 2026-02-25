@@ -24,6 +24,10 @@ jobs:
           mkdir -p ./src/main/resources
           echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./market123/src/main/resources/application.yml
           ls -l ./src/main/resources
+
+      - name: application.yml 존재 확인
+        run: ls -l ./market123/src/main/resources
+
       - name: Gradle 실행 권한 부여
         run: chmod +x ./market123/gradlew
 

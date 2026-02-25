@@ -28,6 +28,9 @@ jobs:
           echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./market123/src/main/resources/application.yml
           ls -l ./src/main/resources   # 파일 확인용 (옵션)
 
+      - name: application.yml 존재 확인
+        run: ls -l ./market123/src/main/resources
+
       # 4️⃣ Gradle 빌드
 
       - name: Gradle 실행 권한 부여
@@ -80,12 +83,7 @@ jobs:
             docker stop market-server || true
             docker rm market-server || true
             docker pull ${{ steps.login-ecr.outputs.registry }}/market-server:$VERSION
-            docker run -d --name market-server \
-            -p 8082:8080 \
-            -e DB_URL=${{ secrets.DB_URL }} \
-            -e DB_USER=${{ secrets.DB_USER }} \
-            -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-            ${{ steps.login-ecr.outputs.registry }}/market-server:$VERSION
+            docker run -d --name market-server -p 8082:8080 ${{ steps.login-ecr.outputs.registry }}/market-server:$VERSION
             
             
             
