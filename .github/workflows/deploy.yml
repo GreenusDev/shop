@@ -87,7 +87,7 @@ jobs:
               --name market-server \
               -p 8082:8080 \
               -e DB_URL=${{ secrets.DB_URL }} \
-              -e DB_USER=${{ secrets.DB_USER }} \
+              -e DB_USER=${{ secrets.DB_USERNAME }} \
               -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
               ${{ steps.login-ecr.outputs.registry }}/market-server:$VERSION
             
