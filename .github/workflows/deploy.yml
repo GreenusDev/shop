@@ -83,11 +83,7 @@ jobs:
             run: |
               docker stop market-server || true
               docker rm market-server || true
-              docker run -d --name market-server -p 8082:8080 \
-                -e DB_URL=${{ secrets.DB_URL }} \
-                -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
-                -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
-                245140949573.dkr.ecr.ap-northeast-2.amazonaws.com/market-server:$VERSION
+              docker run -d --name market-server -p 8082:8080 -e DB_URL=${{ secrets.DB_URL }} -e DB_USERNAME=${{ secrets.DB_USERNAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} 245140949573.dkr.ecr.ap-northeast-2.amazonaws.com/market-server:$VERSION
             
             
             
