@@ -22,7 +22,9 @@ jobs:
       - name: secrets 기반 application.yml 생성
         run: |
           mkdir -p ./src/main/resources
-          echo "${{ secrets.APPLICATION_PROPERTIES }}" > ./market123/src/main/resources/application.yml
+          echo "spring.datasource.url=${{ secrets.DB_URL }}" > ./src/main/resources/application.yml
+          echo "spring.datasource.username=${{ secrets.DB_USERNAME }}" >> ./src/main/resources/application.yml
+          echo "spring.datasource.password=${{ secrets.DB_PASSWORD }}" >> ./src/main/resources/application.yml
           ls -l ./src/main/resources
 
       - name: application.yml 존재 확인
