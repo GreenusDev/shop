@@ -79,11 +79,15 @@ jobs:
             aws ecr get-login-password --region ap-northeast-2 \
             | docker login --username AWS --password-stdin 245140949573.dkr.ecr.ap-northeast-2.amazonaws.com/market-server
             
-            docker stop market-server || true
-            docker rm market-server || true
-            docker pull ${{ steps.login-ecr.outputs.registry }}/market-server:$VERSION
-            docker run -d --name market-server -p 8082:8080 -e DB_URL=${{ secrets.DB_URL }} -e DB_USER=${{ secrets.DB_USERNAME }} -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} ${{ steps.login-ecr.outputs.registry }}/market-server:$VERSION
-            
+            - name: Docker 컨테이너 실행
+            run: |
+              docker stop market-server || true
+              docker rm market-server || true
+              docker run -d --name market-server -p 8082:8080 \
+                -e DB_URL=${{ secrets.DB_URL }} \
+                -e DB_USERNAME=${{ secrets.DB_USERNAME }} \
+                -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+                245140949573.dkr.ecr.ap-northeast-2.amazonaws.com/market-server:$VERSION
             
             
             
